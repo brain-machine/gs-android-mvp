@@ -4,7 +4,6 @@ package io.brainmachine.gs.mvp.presentation.ui.repo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,13 +20,20 @@ import butterknife.Unbinder;
 import io.brainmachine.gs.mvp.R;
 import io.brainmachine.gs.mvp.domain.entity.Repo;
 import io.brainmachine.gs.mvp.presentation.base.BaseFragment;
+import io.brainmachine.gs.mvp.presentation.helper.AppHelper;
 import io.brainmachine.gs.mvp.presentation.ui.home.MainActivity;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A {@link Repo} list fragment.
  */
 public class ReposFragment extends BaseFragment<MainActivity> implements ReposContract.View {
 
+    /**
+     * Injected to use {@link io.brainmachine.gs.mvp.dagger.module.ApplicationModule}<br>
+     * See Dagger builder on {@link io.brainmachine.gs.mvp.MyApplication}.
+     */
+    @Inject
+    AppHelper mHelper;
     @Inject
     ReposContract.Presenter mPresenter;
 
@@ -42,13 +48,14 @@ public class ReposFragment extends BaseFragment<MainActivity> implements ReposCo
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_repo, container, false);
 
         unbinder = ButterKnife.bind(this, view);
         super.getBaseActivity().getDagger().inject(this);
+
+        mFab.setOnClickListener(v -> startNewRepoActivity());
 
         mPresenter.setView(this);
         mPresenter.loadReposByOrgName("brain-machine");
@@ -59,16 +66,16 @@ public class ReposFragment extends BaseFragment<MainActivity> implements ReposCo
     @Override
     public void setupRepos(List<Repo> repos) {
         // use a linear layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(super.getBaseActivity());
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(super.getBaseActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         // specify an adapter (see also next example)
-        RecyclerView.Adapter adapter = new ReposAdapter(repos);
+        final RecyclerView.Adapter<ReposAdapter.ViewHolder> adapter = new ReposAdapter(repos);
         mRecyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void startNewRepoActivity(ReposContract.View view) {
-        Snackbar.make(mFab, "TODO 'POST /user/repo'", Snackbar.LENGTH_LONG).show();
+    public void startNewRepoActivity() {
+        Snackbar.make(mFab, "TODO: create an action!", Snackbar.LENGTH_LONG).show();
     }
 
     @Override

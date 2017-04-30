@@ -2,15 +2,14 @@ package io.brainmachine.gs.mvp.presentation.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import butterknife.BindView;
@@ -20,6 +19,8 @@ import io.brainmachine.gs.mvp.presentation.base.BaseActivity;
 import io.brainmachine.gs.mvp.presentation.ui.repo.ReposFragment;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -56,45 +57,37 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
-        // Handle navigation view item clicks here.
-        switch(item.getItemId()) {
-            case R.id.nav_camera:
-                fragmentClass = ReposFragment.class;
-                break;
-            case R.id.nav_gallery:
-                fragmentClass = ReposFragment.class;
-                break;
-            case R.id.nav_slideshow:
-                fragmentClass = ReposFragment.class;
-                break;
-            case R.id.nav_manage:
+        Fragment fragment;
+        Class<?> fragmentClass;
+        // Handle navigation view item clicks here
+        switch (item.getItemId()) {
+            case R.id.nav_repos:
                 fragmentClass = ReposFragment.class;
                 break;
             case R.id.nav_share:
-                fragmentClass = ReposFragment.class;
-                break;
-            case R.id.nav_send:
-                fragmentClass = ReposFragment.class;
-                break;
+                // TODO: Create specific fragment to share.
+                return true;
             default:
                 fragmentClass = ReposFragment.class;
-
+                break;
         }
 
         try {
+            // Create fragment by refection
             fragment = (Fragment) fragmentClass.newInstance();
+
+            // Insert the fragment by replacing any existing fragment (if different)
+            final FragmentManager fragmentManager = getSupportFragmentManager();
+            final Fragment currentFragment = fragmentManager.findFragmentByTag(TAG);
+            if (currentFragment == null || !fragmentClass.equals(currentFragment.getClass())) {
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment, TAG).commit();
+                // Set action bar title
+                setTitle(item.getTitle());
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage(), e);
         }
 
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-        // Set action bar title
-        setTitle(item.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawer(GravityCompat.START);
         return true;

@@ -1,10 +1,9 @@
 package io.brainmachine.gs.mvp.presentation.ui.repo;
 
-import io.brainmachine.gs.mvp.domain.entity.Repo;
 import io.brainmachine.gs.mvp.domain.repository.GitHubRepository;
 
 /**
- * GitHub List {@link Repo}'s presenter.
+ * GitHub List {@link io.brainmachine.gs.mvp.domain.entity.Repo}'s presenter.
  * <p>
  * Created by falvojr on 1/14/17.
  */

@@ -13,7 +13,7 @@ public interface ReposContract {
     interface View {
         void setupRepos(List<Repo> repos);
 
-        void startNewRepoActivity(View view);
+        void startNewRepoActivity();
 
         void showError(String message);
     }
