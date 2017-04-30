@@ -2,6 +2,7 @@ package io.brainmachine.gs.mvp.presentation.ui.home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     DrawerLayout mDrawer;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,5 +94,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Close the navigation drawer
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public FloatingActionButton getFab() {
+        return mFab;
     }
 }

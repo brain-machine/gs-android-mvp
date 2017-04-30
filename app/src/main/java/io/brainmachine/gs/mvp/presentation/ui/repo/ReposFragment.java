@@ -39,8 +39,6 @@ public class ReposFragment extends BaseFragment<MainActivity> implements ReposCo
 
     @BindView(R.id.rvRepos)
     RecyclerView mRecyclerView;
-    @BindView(R.id.fab)
-    FloatingActionButton mFab;
 
     private Unbinder unbinder;
 
@@ -55,7 +53,7 @@ public class ReposFragment extends BaseFragment<MainActivity> implements ReposCo
         unbinder = ButterKnife.bind(this, view);
         super.getBaseActivity().getDagger().inject(this);
 
-        mFab.setOnClickListener(v -> startNewRepoActivity());
+        super.getBaseActivity().getFab().setOnClickListener(v -> startNewRepoActivity());
 
         mPresenter.setView(this);
         mPresenter.loadReposByOrgName("brain-machine");
@@ -75,12 +73,12 @@ public class ReposFragment extends BaseFragment<MainActivity> implements ReposCo
 
     @Override
     public void startNewRepoActivity() {
-        Snackbar.make(mFab, "TODO: create an action!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(super.getBaseActivity().getFab(), "TODO: create an action!", Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void showError(String message) {
-        Snackbar.make(mFab, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(super.getBaseActivity().getFab(), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
