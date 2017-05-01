@@ -1,10 +1,9 @@
-package io.brainmachine.gs.mvp.dagger;
+package io.brainmachine.gs.mvp.dagger.component;
 
 import dagger.Subcomponent;
 import io.brainmachine.gs.mvp.dagger.module.presentation.PresenterModule;
 import io.brainmachine.gs.mvp.dagger.scope.PerActivity;
 import io.brainmachine.gs.mvp.presentation.ui.home.MainActivity;
-import io.brainmachine.gs.mvp.presentation.ui.repo.ReposFragment;
 
 /**
  * Dagger UI {@link Subcomponent} (per activity scope).
@@ -13,7 +12,8 @@ import io.brainmachine.gs.mvp.presentation.ui.repo.ReposFragment;
  */
 @PerActivity
 @Subcomponent(modules = {PresenterModule.class})
-public interface UiComponent {
-    void inject(MainActivity activity);
-    void inject(ReposFragment fragment);
+public interface ActivityComponent {
+    void inject(MainActivity mainActivity);
 }
+
+

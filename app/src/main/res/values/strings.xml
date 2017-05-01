@@ -12,6 +12,7 @@
     <string name="msg_required_field">Required field.</string>
 
     <!-- TODO: Remove or change its placeholder texts -->
+    <string name="hello_world">Hello, Brain Machine MVP!</string>
     <string name="sample_user_name">Brain Machine</string>
     <string name="sample_user_email">contact@brainmachine.io</string>
     <string name="sample_user_image">Sample user image.</string>

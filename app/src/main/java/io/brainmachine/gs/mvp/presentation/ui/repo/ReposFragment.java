@@ -2,7 +2,6 @@ package io.brainmachine.gs.mvp.presentation.ui.repo;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +19,6 @@ import butterknife.Unbinder;
 import io.brainmachine.gs.mvp.R;
 import io.brainmachine.gs.mvp.domain.entity.Repo;
 import io.brainmachine.gs.mvp.presentation.base.BaseFragment;
-import io.brainmachine.gs.mvp.presentation.helper.AppHelper;
 import io.brainmachine.gs.mvp.presentation.ui.home.MainActivity;
 
 /**
@@ -28,12 +26,6 @@ import io.brainmachine.gs.mvp.presentation.ui.home.MainActivity;
  */
 public class ReposFragment extends BaseFragment<MainActivity> implements ReposContract.View {
 
-    /**
-     * Injected to use {@link io.brainmachine.gs.mvp.dagger.module.ApplicationModule}<br>
-     * See Dagger builder on {@link io.brainmachine.gs.mvp.MyApplication}.
-     */
-    @Inject
-    AppHelper mHelper;
     @Inject
     ReposContract.Presenter mPresenter;
 
@@ -51,7 +43,7 @@ public class ReposFragment extends BaseFragment<MainActivity> implements ReposCo
         final View view = inflater.inflate(R.layout.fragment_repo, container, false);
 
         unbinder = ButterKnife.bind(this, view);
-        super.getBaseActivity().getDagger().inject(this);
+        super.getBaseActivity().getDaggerFragmentComponent().inject(this);
 
         super.getBaseActivity().getFab().setOnClickListener(v -> startNewRepoActivity());
 

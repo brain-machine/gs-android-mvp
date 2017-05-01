@@ -3,7 +3,8 @@ package io.brainmachine.gs.mvp.presentation.base;
 import android.support.v7.app.AppCompatActivity;
 
 import io.brainmachine.gs.mvp.MyApplication;
-import io.brainmachine.gs.mvp.dagger.UiComponent;
+import io.brainmachine.gs.mvp.dagger.component.ActivityComponent;
+import io.brainmachine.gs.mvp.dagger.component.FragmentComponent;
 
 /**
  * Base {@link AppCompatActivity}.
@@ -16,8 +17,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return (MyApplication) getApplication();
     }
 
-    public UiComponent getDagger() {
-        return this.getMyApplication().getDaggerUiComponent();
+    protected ActivityComponent getDaggerActivityComponent() {
+        return this.getMyApplication().getDagger().activityComponent();
+    }
+
+    public FragmentComponent getDaggerFragmentComponent() {
+        return this.getMyApplication().getDagger().fragmentComponent();
     }
 
 }

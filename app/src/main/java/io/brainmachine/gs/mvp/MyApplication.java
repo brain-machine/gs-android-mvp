@@ -2,9 +2,8 @@ package io.brainmachine.gs.mvp;
 
 import android.app.Application;
 
-import io.brainmachine.gs.mvp.dagger.DaggerDiComponent;
-import io.brainmachine.gs.mvp.dagger.DiComponent;
-import io.brainmachine.gs.mvp.dagger.UiComponent;
+import io.brainmachine.gs.mvp.dagger.DaggerMainComponent;
+import io.brainmachine.gs.mvp.dagger.MainComponent;
 import io.brainmachine.gs.mvp.dagger.module.ApplicationModule;
 
 /**
@@ -14,18 +13,18 @@ import io.brainmachine.gs.mvp.dagger.module.ApplicationModule;
  */
 public class MyApplication extends Application {
 
-    private DiComponent mDiComponent;
+    private MainComponent mDiComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mDiComponent = DaggerDiComponent.builder()
+        mDiComponent = DaggerMainComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
 
-    public UiComponent getDaggerUiComponent() {
-        return mDiComponent.uiComponent();
+    public MainComponent getDagger() {
+        return mDiComponent;
     }
 }

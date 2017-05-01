@@ -3,6 +3,8 @@ package io.brainmachine.gs.mvp.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import io.brainmachine.gs.mvp.dagger.component.ActivityComponent;
+import io.brainmachine.gs.mvp.dagger.component.FragmentComponent;
 import io.brainmachine.gs.mvp.dagger.module.ApplicationModule;
 import io.brainmachine.gs.mvp.dagger.module.PreferenceModule;
 import io.brainmachine.gs.mvp.dagger.module.infra.ManagerModule;
@@ -24,6 +26,8 @@ import io.brainmachine.gs.mvp.dagger.module.presentation.HelperModule;
         ServiceModule.class,
         ManagerModule.class
 })
-public interface DiComponent {
-    UiComponent uiComponent();
+public interface MainComponent {
+    ActivityComponent activityComponent();
+
+    FragmentComponent fragmentComponent();
 }
